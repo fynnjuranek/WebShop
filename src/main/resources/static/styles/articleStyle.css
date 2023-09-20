@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+th {
+	font-size:30px;
+	border-bottom: 1px solid blue;
+}
+
+table {
+	margin-left: 10px;
+	margin-top: 3px;
+	border: 2px solid blue;
+	border-collapse: collapse;
+}
+
+td {
+	padding: 5px;
+	font-size: 18px;
+}
+
+p {
+	margin-left: 10px;
+}
+
+.catalogLink a:link, .catalogLink a:visited {
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 20px;
+	background-color: #49D63E;
+	text-decoration: none;
+	color: white;
+	box-shadow: 10px 10px 5px lightblue;
+}
+
+.catalogLink a:hover {
+	color: black;
+}
