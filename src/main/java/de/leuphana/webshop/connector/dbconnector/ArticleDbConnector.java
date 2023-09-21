@@ -48,13 +48,13 @@ public class ArticleDbConnector {
 				float articlePrice = rs.getFloat("price");
 				if (rs.getObject("category") != null) {
 					BookCategory articleCategory = BookCategory.valueOf(rs.getString("category"));
-					Book book = new Book(articleId);
+					Book book = new Book();
 					book.setName(articleName);
 					book.setPrice(articlePrice);
 					book.setBookCategory(articleCategory);
 					articles.add(book);
 				} else if (rs.getObject("artist") != null){
-					CD cd = new CD(articleId);
+					CD cd = new CD();
 					cd.setName(articleName);
 					cd.setArtist(rs.getString("artist"));
 					cd.setManufactor(rs.getString("manufactor"));

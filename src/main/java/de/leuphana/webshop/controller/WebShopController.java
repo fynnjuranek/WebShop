@@ -2,7 +2,7 @@ package de.leuphana.webshop.controller;
 
 import de.leuphana.shop.behaviour.Shop;
 import de.leuphana.shop.structure.*;
-import jakarta.annotation.PostConstruct;
+import de.leuphana.webshop.connector.dbconnector.ArticleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Controller
@@ -18,6 +19,11 @@ import java.util.Set;
 public class WebShopController {
 
     private Shop onlineShop = Shop.create();
+
+    private ArticleRepository repository;
+    WebShopController(ArticleRepository repository) {
+        this.repository = repository;
+    }
 
 
     @RequestMapping("/showCatalog")
@@ -28,8 +34,12 @@ public class WebShopController {
             model.addAttribute("customerId", customerId);
             model.addAttribute("cart", cart);
         }
+
         Catalog catalog = onlineShop.getCatalog();
-        Set<Article> articles = catalog.getArticles();
+        Set<Article> articles = new HashSet<>();//catalog.getArticles();
+        articles.addAll(repository.findAll());
+        catalog.setArticles(articles); // after getting them from the Database
+
         model.addAttribute("catalog", catalog);
         model.addAttribute("articles", articles);
         return "catalog";

@@ -1,0 +1,35 @@
+<!DOCTYPE>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/styles/articleStyle.css">
+<title>Article</title>
+</head>
+<body>
+	<div th:replace="~{banner}"></div>
+	
+
+		<table>
+			<tr><th colspan="2">Article info</th></tr>
+			<tr><td>Article ID:</td><td th:text="${article.getArticleId()}"></td></tr>
+			<tr><td>Article-Name:</td><td th:text="${article.name}"></td></tr>
+			
+			<th:block th:if="${book != null}">
+				<tr><td>Author:</td> <td th:text="${book.getAuthor()}"></td></tr>
+				<tr><td>Category: </td><td th:text="${book.getBookCategory()}"></td></tr>
+			</th:block>
+			<th:block th:if="${cd != null}">
+				<tr><td>Musician: </td><td th:text="${cd.getArtist()}"></td></tr>
+				<tr><td>Producer: </td><td th:text="${cd.getManufactor()}"></td></tr>
+			</th:block>
+				<tr><td>Price:</td><td th:text="${article.getPrice() + ' EURO'}"></td></tr>
+			</table>
+			
+		<div class ="catalogLink">
+		<p><a href ="/dispatchAction/showCatalog">Show Catalog</a></p>
+		</div>
+
+	<div th:replace="~{imprint}"></div>
+
+</body>
+</html>

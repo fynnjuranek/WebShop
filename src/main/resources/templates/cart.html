@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cart</title>
+<link rel="stylesheet" href="/styles/cartStyle.css">
+</head>
+<body>
+	<div th:replace="~{banner}"></div>
+	<p th:text="'there are ' + ${cart.numberOfArticles} + ' Articles in cart.'"></p>
+	<table>
+				<tr>
+					<th><h3>Quantity</h3></th>
+					<th><h3>Title</h3></th>
+					<th><h3>Price</h3></th>
+				</tr>
+					<th:block th:each="cartItem : ${cartItems}">
+					<tr>
+						<td align=center th:text="${cartItem.quantity}"></td>
+						<td th:text="${cartItem.article.name}"></td>
+						<td th:text="${cartItem.article.price} + ' Euro'"></td>
+						<td><a th:href="@{/dispatchAction/removeArticle(articleId=${cartItem.article.articleId})}">Remove article</a></td>
+					</tr>
+					</th:block>
+					<tr>
+						<td style=border:none></td><td align=right>Total Price: </td><td th:text="${cart.totalPrice} + ' EURO'"></td></tr>
+				</table>
+				
+	<div class ="wrapper">
+		<div class="orderLink">	
+		<p><a href="/dispatchAction/orderArticles">Order Articles</a></p>
+		</div>
+		<div class="catalogLink">
+		<p><a href="/dispatchAction/showCatalog">Show Catalog</a></p>
+		</div>
+	</div>
+
+	<div th:replace="~{imprint}"></div>
+
+
+</body>
+</html>

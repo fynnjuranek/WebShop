@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.leuphana</groupId>
-    <artifactId>Inkrement11</artifactId>
+    <artifactId>WebShop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Inkrement11.1</name>
-    <description>Inkrement11.1</description>
+    <name>WebShop</name>
+    <description>WebShop</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -34,18 +34,32 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>9.0.44</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>3.1.4</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>9.0.44</version>
-            <scope>provided</scope>
-        </dependency>
+
+        <!--        <dependency>-->
+<!--            <groupId>org.apache.tomcat.embed</groupId>-->
+<!--            <artifactId>tomcat-embed-jasper</artifactId>-->
+<!--            <version>9.0.44</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.tomcat.embed</groupId>-->
+<!--            <artifactId>tomcat-embed-jasper</artifactId>-->
+<!--            <version>9.0.44</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -65,29 +79,17 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.33</version>
         </dependency>
-
         <dependency>
-            <groupId>JSP</groupId>
-            <artifactId>JSTL</artifactId>
-            <scope>system</scope>
-            <version>2.0.0</version>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jakarta.servlet.jsp.jstl-2.0.0.jar</systemPath>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
-            <groupId>JSP-api</groupId>
-            <artifactId>JSTL-api</artifactId>
-            <scope>system</scope>
-            <version>2.0.0</version>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-2.0.0.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>Shop</groupId>
-            <artifactId>Shop</artifactId>
-            <scope>system</scope>
-            <version>0</version>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Shop.jar</systemPath>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>

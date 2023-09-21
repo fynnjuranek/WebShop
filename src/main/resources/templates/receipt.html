@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/styles/receiptStyle.css">
+<title>Receipt</title>
+</head>
+<body>
+	<th:block th:replace="banner"/>
+
+		<p th:text="'The following ' + ${cart.numberOfArticles} + ' are ordered for the user ' + ${name} + ' Credit card number: ' + ${iban}"></p>
+		<table>
+			<tr>
+				<th><h3>Quantity</h3></th>
+				<th><h3>Title</h3></th>
+				<th><h3>Price</h3></th>				
+			</tr>
+			<th:block th:each="cartItem : ${cartItems}">
+			<tr>
+				<td align=center th:text="${cartItem.quantity}"></td>
+				<td th:text="${cartItem.article.name}"></td>
+				<td th:text="${cartItem.article.price} + ' EURO'"></td>
+			</tr>
+			</th:block>
+			<tr>
+				<td style=border:none></td><td align=right>Total Price: </td><td th:text="${cart.totalPrice} + ' EURO'"></td>
+			</tr>
+		</table>
+		
+		<p>Thank you!</p>
+		<p><a href="/dispatchAction/showCatalog">Back to Catalog</a></p>
+
+	<th:block th:replace="imprint"/>
+</body>
+</html>
