@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -15,11 +16,11 @@ public class Article {
 	private int articleId;
 	private String manufactor;
 	private String name;
-	private float price;
+	private BigDecimal price;
 
 	public Article() {}
 
-	public Article(String manufactor, String name, float price) {
+	public Article(String manufactor, String name, BigDecimal price) {
 		this.manufactor = manufactor;
 		this.name = name;
 		this.price = price;
@@ -34,7 +35,7 @@ public class Article {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Article article = (Article) o;
-		return articleId == article.articleId && Float.compare(price, article.price) == 0 && Objects.equals(manufactor, article.manufactor) && Objects.equals(name, article.name);
+		return articleId == article.articleId && Objects.equals(manufactor, article.manufactor) && Objects.equals(name, article.name) && Objects.equals(price, article.price);
 	}
 
 	@Override
@@ -72,11 +73,11 @@ public class Article {
 		this.name = name;
 	}
 
-	public float getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

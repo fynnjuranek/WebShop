@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/styles/receiptStyle.css">
@@ -8,7 +8,7 @@
 <body>
 	<th:block th:replace="banner"/>
 
-		<p th:text="'The following ' + ${cart.numberOfArticles} + ' are ordered for the user ' + ${name} + ' Credit card number: ' + ${iban}"></p>
+		<p th:text="'The following ' + ${cart.getNumberOfArticles()} + ' are ordered for the user ' + ${name} + ' Credit card number: ' + ${iban}"></p>
 		<table>
 			<tr>
 				<th><h3>Quantity</h3></th>
@@ -17,13 +17,13 @@
 			</tr>
 			<th:block th:each="cartItem : ${cartItems}">
 			<tr>
-				<td align=center th:text="${cartItem.quantity}"></td>
-				<td th:text="${cartItem.article.name}"></td>
-				<td th:text="${cartItem.article.price} + ' EURO'"></td>
+				<td align=center th:text="${cartItem.getQuantity()}"></td>
+				<td th:text="${cartItem.getArticle().getName()}"></td>
+				<td th:text="${cartItem.getArticle().getPrice()} + ' EURO'"></td>
 			</tr>
 			</th:block>
 			<tr>
-				<td style=border:none></td><td align=right>Total Price: </td><td th:text="${cart.totalPrice} + ' EURO'"></td>
+				<td style=border:none></td><td align=right>Total Price: </td><td th:text="${cart.getTotalPrice()} + ' EURO'"></td>
 			</tr>
 		</table>
 		

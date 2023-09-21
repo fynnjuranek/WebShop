@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div th:replace="~{banner}"></div>
-	<p th:text="'there are ' + ${cart.numberOfArticles} + ' Articles in cart.'"></p>
+	<p th:text="'there are ' + ${cart.getNumberOfArticles()} + ' Articles in cart.'"></p>
 	<table>
 				<tr>
 					<th><h3>Quantity</h3></th>
@@ -16,14 +16,14 @@
 				</tr>
 					<th:block th:each="cartItem : ${cartItems}">
 					<tr>
-						<td align=center th:text="${cartItem.quantity}"></td>
-						<td th:text="${cartItem.article.name}"></td>
-						<td th:text="${cartItem.article.price} + ' Euro'"></td>
-						<td><a th:href="@{/dispatchAction/removeArticle(articleId=${cartItem.article.articleId})}">Remove article</a></td>
+						<td align=center th:text="${cartItem.getQuantity()}"></td>
+						<td th:text="${cartItem.getArticle().getName()}"></td>
+						<td th:text="${cartItem.getArticle().getPrice()} + ' Euro'"></td>
+						<td><a th:href="@{/dispatchAction/removeArticle(articleId=${cartItem.getArticle().getArticleId()})}">Remove article</a></td>
 					</tr>
 					</th:block>
 					<tr>
-						<td style=border:none></td><td align=right>Total Price: </td><td th:text="${cart.totalPrice} + ' EURO'"></td></tr>
+						<td style=border:none></td><td align=right>Total Price: </td><td th:text="${cart.getTotalPrice()} + ' EURO'"></td></tr>
 				</table>
 				
 	<div class ="wrapper">

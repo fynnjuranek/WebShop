@@ -12,7 +12,7 @@
 		<table>
 			<tr><th colspan="2">Article info</th></tr>
 			<tr><td>Article ID:</td><td th:text="${article.getArticleId()}"></td></tr>
-			<tr><td>Article-Name:</td><td th:text="${article.name}"></td></tr>
+			<tr><td>Article-Name:</td><td th:text="${article.getName()}"></td></tr>
 			
 			<th:block th:if="${book != null}">
 				<tr><td>Author:</td> <td th:text="${book.getAuthor()}"></td></tr>

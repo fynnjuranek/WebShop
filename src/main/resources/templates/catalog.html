@@ -9,10 +9,10 @@
 	<div th:replace="~{banner}"></div>
 
 	<th:block th:if="${article != null}">
-	<h2>You have added following article into the cart:<br></h2><!--<c:out value="${article.name}"/></h2>-->
+	<h2>You have added following article into the cart:<br><th:block th:text="${article.getName()}"/></h2>
 	</th:block>
 
-	<th:block th:if="${cart.cartItems.size() != 0}">
+	<th:block th:if="${cart.getCartItems().size() != 0}">
 		<div class ="catalogLink">
 		<p><a href ="/dispatchAction/showCart">Show Cart</a></p>
 		</div>
@@ -22,9 +22,9 @@
 		<tr><th>Article Name: </th><th>Price: </th></tr>
 		<th:block th:each="article: ${articles}">
 			<tr>
-				<td><a th:href ="@{/dispatchAction/showArticle(articleId=${article.getArticleId()})}" th:text="${article.name}"></a></td>
-				<td th:text="${article.price} + 'Euro'"></td>
-<!--				<td><a th:href ="@{/dispatchAction/addArticle(articleId=${article.getArticleId()})}" th:text="Add article"></a></td> TODO hier entsteht ein Bug-->
+				<td><a th:href ="@{/dispatchAction/showArticle(articleId=${article.getArticleId()})}" th:text="${article.getName()}"></a></td>
+				<td th:text="${article.getPrice()} + ' Euro'"></td>
+				<td><a th:href ="@{/dispatchAction/addArticle(articleId=${article.getArticleId()})}">Add article</a></td>
 			</tr>
 		</th:block>
 	</table>

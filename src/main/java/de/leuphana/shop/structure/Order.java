@@ -1,5 +1,6 @@
 package de.leuphana.shop.structure;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class Order {
@@ -37,14 +38,14 @@ public class Order {
 		return 0;
 	}
 
-	public double getTotalPrice() {
-		double totalPrice = 0.0;
+	public BigDecimal getTotalPrice() {
+		BigDecimal totalPrice = new BigDecimal("0.0");
 
 		Article article;
 		for (OrderPosition orderPosition : orderPositions.values()) {
 			article = orderPosition.getArticle();
 
-			totalPrice += orderPosition.getArticleQuantity() * article.getPrice();
+			totalPrice = totalPrice.add(article.getPrice().multiply(new BigDecimal(orderPosition.getArticleQuantity())));
 		}
 
 		return totalPrice;

@@ -1,5 +1,6 @@
 package de.leuphana.shop.structure;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,14 +57,14 @@ public class Cart {
 		return numberOfArticles;
 	}
 
-	public double getTotalPrice() {
-		double totalPrice = 0.0;
+	public BigDecimal getTotalPrice() {
+		BigDecimal totalPrice = new BigDecimal("0.0") ;
 
 		Article article;
 		for (CartItem cartItem : getCartItems()) {
 			article = cartItem.getArticle();
 
-			totalPrice += cartItem.getQuantity() * article.getPrice();
+			totalPrice = totalPrice.add(article.getPrice().multiply(new BigDecimal(cartItem.getQuantity())));
 		}
 
 		return totalPrice;

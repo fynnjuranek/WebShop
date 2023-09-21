@@ -3,6 +3,7 @@ package de.leuphana.webshop.controller;
 import de.leuphana.shop.behaviour.Shop;
 import de.leuphana.shop.structure.*;
 import de.leuphana.webshop.connector.dbconnector.ArticleRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +15,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/dispatchAction") // TODO vielleicht geht das
+@RequestMapping("/dispatchAction")
 @SessionAttributes({"customerId", "cart"})
 public class WebShopController {
 
-    private Shop onlineShop = Shop.create();
+    private final Shop onlineShop = Shop.create();
 
-    private ArticleRepository repository;
+    private final ArticleRepository repository;
     WebShopController(ArticleRepository repository) {
         this.repository = repository;
     }
@@ -31,13 +32,13 @@ public class WebShopController {
         if (model.getAttribute("customerId") == null || model.getAttribute("cart") == null) {
             Integer customerId = onlineShop.createCustomerWithCart();
             Cart cart = onlineShop.getCartForCustomer(customerId);
-            model.addAttribute("customerId", customerId);
+            model.addAttribute("customerId", customerId); // TODO check if every model.addAttribute is really needed
             model.addAttribute("cart", cart);
         }
 
         Catalog catalog = onlineShop.getCatalog();
-        Set<Article> articles = new HashSet<>();//catalog.getArticles();
-        articles.addAll(repository.findAll());
+        //catalog.getArticles();
+        Set<Article> articles = new HashSet<>(repository.findAll());
         catalog.setArticles(articles); // after getting them from the Database
 
         model.addAttribute("catalog", catalog);
@@ -52,7 +53,7 @@ public class WebShopController {
         onlineShop.addArticleToCart((Integer)model.getAttribute("customerId"), article.getArticleId());
         model.addAttribute("article", article);
         model.addAttribute("articles", articles);
-        return "catalog";
+        return showCatalog(model);
     }
 
     @RequestMapping("/showArticle")
@@ -100,11 +101,4 @@ public class WebShopController {
         model.addAttribute("cartItems", cart.getCartItems());
         return "receipt";
     }
-
-
-
-
-
-
-
 }
