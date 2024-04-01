@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+
+
+.wrapper {
+	width: 950px;
+	margin-left: 10px;
+	margin-bottom: 50px;
+	display: flex;
+}
+
+.cart {
+	width: 50%;
+}
+
+.cart p {
+	font-size: 18px;
+	margin-bottom: 2px;
+	margin-left: 10px;
+}
+
+.submitForm {
+	width: 50%;
+	margin-top: 90px;
+	padding-left: 60px;
+	background-color: lightgray;
+	
+}
+
+.catalogLink a:link, .catalogLink a:visited {
+	width: 50px;
+	margin-left: 10px;
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 20px;
+	background-color: #49D63E;
+	text-decoration: none;
+	color: white;
+	box-shadow: 10px 10px 5px lightblue;
+}
+
+.catalogLink a:hover {
+	color: black;
+}
+
+

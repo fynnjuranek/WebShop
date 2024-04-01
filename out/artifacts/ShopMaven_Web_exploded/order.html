@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/styles/orderStyle.css">
+<title>Order</title>
+</head>
+<body>
+	<th:block th:replace="banner"/>
+	<div class="wrapper">
+		<div class="cart">
+			<p th:text="'there are ' + ${cartItems.size()} + ' Articles in cart.'"></p>
+			
+			<table>
+				<tr>
+					<th><h3>Quantity</h3></th>
+					<th><h3>Title</h3></th>
+					<th><h3>Price</h3></th>
+				</tr>
+				<th:block th:each="cartItem : ${cartItems}">
+				<tr>
+					<td align=center th:text="${cartItem.getQuantity()}"></td>
+					<td th:text="${cartItem.getArticle().getName()}"></td>
+					<td th:text="${cartItem.getArticle().getPrice()} + ' EURO'"></td>
+				</tr>
+				</th:block>
+				<tr>
+					<td style=border:none></td>
+					<td align=right>Total Price: </td>
+					<td th:text="${cart.getTotalPrice()} + ' EURO'"></td>
+				</tr>
+			</table>
+			
+		<div class="catalogLink">	
+		<p><a href="/dispatchAction/showCatalog">Show Catalog</a></p>
+		</div>
+	</div>
+		<div class="submitForm">
+		<p>The following information is needed for ordering:</p>
+			<form name="submitForm" method="post" action="/dispatchAction/showReceipt" id="order">
+				<table>
+				<tr><td><label for="name">Name: </label></td>
+				<td><input type="text" name="name" id="name" maxlength="30"></td></tr>	
+					<tr><td><label for="iban">Credit card number: </label></td>
+					<td><input type="text" name="iban" id="iban" maxLength="40"></td></tr>
+				
+				<tr><td><td><button type="submit">Submit</button></td></tr>				
+				</table>
+			</form>
+		</div>
+	</div>
+
+	<th:block th:replace="imprint"/>
+</body>
+</html>
