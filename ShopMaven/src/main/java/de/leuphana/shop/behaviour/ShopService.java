@@ -1,17 +1,18 @@
 package de.leuphana.shop.behaviour;
 
-import de.leuphana.article.structure.Article;
+
 import de.leuphana.connector.ArticleRestConnectorRequester;
 import de.leuphana.connector.CustomerRestConnectorRequester;
 import de.leuphana.connector.OrderJMSConnectorSender;
-import de.leuphana.customer.structure.CartItem;
-import de.leuphana.customer.structure.Customer;
-import de.leuphana.order.structure.Order;
-import de.leuphana.order.structure.OrderPosition;
 import de.leuphana.shop.structure.billing.Invoice;
 import de.leuphana.shop.structure.billing.InvoicePosition;
+import de.leuphana.shop.structure.customer.CartItem;
+import de.leuphana.shop.structure.customer.Customer;
+import de.leuphana.order.structure.Order;
+import de.leuphana.order.structure.OrderPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import de.leuphana.shop.structure.article.Article;
 
 import java.util.List;
 

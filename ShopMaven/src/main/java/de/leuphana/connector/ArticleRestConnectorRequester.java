@@ -1,7 +1,7 @@
 package de.leuphana.connector;
 
 
-import de.leuphana.article.structure.Article;
+import de.leuphana.shop.structure.article.Article;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

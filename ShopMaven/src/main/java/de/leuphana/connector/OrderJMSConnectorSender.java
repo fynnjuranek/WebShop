@@ -1,5 +1,6 @@
 package de.leuphana.connector;
 
+import de.leuphana.order.structure.Order;
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;
 import jakarta.jms.TemporaryQueue;
@@ -7,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.stereotype.Component;
-import de.leuphana.order.structure.Order;
 
 @Component
 public class OrderJMSConnectorSender {
-    // TODO: Maybe the name needs to be changed!
-
+    // Destinations
+    public static final String ADD_ORDER = "addOrder";
+    public static final String GET_ORDER = "getOrder";
+    public static final String DELETE_ORDER = "deleteOrder";
+    public static final String CREATE_ORDER = "createOrder";
+    // Properties
+    public static final String ARTICLE_QUANTITY = "articleQuantity";
+    public static final String ORDER_ID= "orderId";
     // This is the provider because it sends the message to the queue,
     // no matter what or who is attached to the destination
     @Autowired
@@ -24,13 +30,13 @@ public class OrderJMSConnectorSender {
             MessagePostProcessor messagePostProcessor = new MessagePostProcessor() {
                 @Override
                 public Message postProcessMessage(Message message) throws JMSException {
-                    message.setIntProperty(OrderJMSConnectorRequester.ARTICLE_QUANTITY, articleQuantity);
-                    message.setStringProperty(OrderJMSConnectorRequester.ORDER_ID, orderId);
+                    message.setIntProperty(ARTICLE_QUANTITY, articleQuantity);
+                    message.setStringProperty(ORDER_ID, orderId);
                     message.setJMSReplyTo(tempQueue);
                     return message;
                 }
             };
-            jmsTemplate.convertAndSend(OrderJMSConnectorRequester.ADD_ORDER, articleId, messagePostProcessor);
+            jmsTemplate.convertAndSend(ADD_ORDER, articleId, messagePostProcessor);
             return (Order) jmsTemplate.receiveAndConvert(tempQueue);
         });
         return respondedOrder;
@@ -46,7 +52,7 @@ public class OrderJMSConnectorSender {
                     return message;
                 }
             };
-            jmsTemplate.convertAndSend(OrderJMSConnectorRequester.CREATE_ORDER, 0, messagePostProcessor);
+            jmsTemplate.convertAndSend(CREATE_ORDER, 0, messagePostProcessor);
             return (Order) jmsTemplate.receiveAndConvert(tempQueue);
         });
     }
@@ -61,7 +67,7 @@ public class OrderJMSConnectorSender {
                     return message;
                 }
             };
-            jmsTemplate.convertAndSend(OrderJMSConnectorRequester.GET_ORDER, orderId, messagePostProcessor);
+            jmsTemplate.convertAndSend(GET_ORDER, orderId, messagePostProcessor);
             return (Order) jmsTemplate.receiveAndConvert(tempQueue);
         });
         return foundOrder;
@@ -77,7 +83,7 @@ public class OrderJMSConnectorSender {
                     return message;
                 }
             };
-            jmsTemplate.convertAndSend(OrderJMSConnectorRequester.DELETE_ORDER, orderId, messagePostProcessor);
+            jmsTemplate.convertAndSend(DELETE_ORDER, orderId, messagePostProcessor);
             return (Boolean) jmsTemplate.receiveAndConvert(tempQueue);
         }));
         return isOrderDeleted;

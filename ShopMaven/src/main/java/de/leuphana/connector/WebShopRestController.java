@@ -1,15 +1,17 @@
 package de.leuphana.connector;
 
-import de.leuphana.article.structure.Article;
-import de.leuphana.article.structure.Book;
-import de.leuphana.article.structure.CD;
-import de.leuphana.customer.structure.Cart;
-import de.leuphana.customer.structure.CartItem;
 import de.leuphana.shop.behaviour.ShopService;
 
+import de.leuphana.shop.structure.article.Article;
+import de.leuphana.shop.structure.article.Book;
+import de.leuphana.shop.structure.article.CD;
+import de.leuphana.shop.structure.customer.Cart;
+import de.leuphana.shop.structure.customer.CartItem;
+import de.leuphana.shop.structure.sales.Catalog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -30,23 +32,23 @@ public class WebShopRestController {
 
     @RequestMapping("/showCatalog")
     public String showCatalog(Model model) {
-//        if (model.getAttribute("customerId") == null || model.getAttribute("cart") == null) {
-//            Integer customerId = shopService.createCustomer("Test", "Test"); // TODO: The Parameters need to be changed.
-//            Cart cart = shopService.getCustomer(customerId).getCart();
-//            model.addAttribute("customerId", customerId); // TODO check if every model.addAttribute is really needed
-//            model.addAttribute("cart", cart);
-//        }
-//        Catalog catalog = new Catalog();
-//        //catalog.getArticles();
-//        Set<Article> articles = new HashSet<>(shopService.getArticles());
-//        catalog.setArticles(articles); // after getting them from the Database
-//
-//        model.addAttribute("catalog", catalog);
-//        model.addAttribute("articles", articles);
+        if (model.getAttribute("customerId") == null || model.getAttribute("cart") == null) {
+            Integer customerId = shopService.createCustomer("Test", "Test"); // TODO: The Parameters need to be changed.
+            Cart cart = shopService.getCustomer(customerId).getCart();
+            model.addAttribute("customerId", customerId); // TODO check if every model.addAttribute is really needed
+            model.addAttribute("cart", cart);
+        }
+        Catalog catalog = new Catalog();
+        //catalog.getArticles();
+        Set<Article> articles = new HashSet<>(shopService.getArticles());
+        catalog.setArticles(articles); // after getting them from the Database
+
+        model.addAttribute("catalog", catalog);
+        model.addAttribute("articles", articles);
         return "catalog";
     }
 
-    @RequestMapping("/addArticle")
+    @PostMapping("/addArticle")
     public String addArticle(Model model, @RequestParam(name = "articleId") String articleId,
                              @RequestParam(name = "articleQuantity") Integer articleQuantity) {
         Article article = shopService.getArticleByArticleId(Integer.parseInt(articleId));

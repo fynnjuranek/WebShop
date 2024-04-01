@@ -1,7 +1,7 @@
 package de.leuphana.connector;
 
-import de.leuphana.article.structure.Article;
-import de.leuphana.customer.structure.Customer;
+
+import de.leuphana.shop.structure.customer.Customer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,10 +1,11 @@
 package de.leuphana.connector;
 
 
-import de.leuphana.article.structure.Article;
-import de.leuphana.article.structure.Book;
-import de.leuphana.article.structure.BookCategory;
-import de.leuphana.article.structure.CD;
+import de.leuphana.shop.structure.article.Article;
+
+import de.leuphana.shop.structure.article.Book;
+import de.leuphana.shop.structure.article.BookCategory;
+import de.leuphana.shop.structure.article.CD;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
 package de.leuphana.connector;
 
-import de.leuphana.order.structure.OrderPosition;
 import de.leuphana.shop.behaviour.ShopService;
+import de.leuphana.order.structure.OrderPosition;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,7 +50,7 @@ public class OrderJMSConnectorSenderTest {
     @Order(3)
     void canOrderBeFound() {
         de.leuphana.order.structure.Order foundOrder = orderJMSConnectorSender.getOrder(addedOrder.getOrderId());
-        System.out.println("Found order with id: " + foundOrder.getOrderId() + " and number of articles: " + foundOrder.getNumberOfArticles());
+        System.out.println("Found order with id: " + foundOrder.getOrderId() + " and number of unique articles: " + foundOrder.getOrderPositions().size());
         List<OrderPosition> orderPositions = foundOrder.getOrderPositions();
         System.out.println("Articles: ");
         for (OrderPosition orderPosition : orderPositions) {

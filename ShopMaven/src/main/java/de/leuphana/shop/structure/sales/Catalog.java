@@ -1,8 +1,10 @@
 package de.leuphana.shop.structure.sales;
 
-import de.leuphana.article.structure.Article;
-import de.leuphana.article.structure.Book;
-import de.leuphana.article.structure.BookCategory;
+
+
+import de.leuphana.shop.structure.article.Article;
+import de.leuphana.shop.structure.article.Book;
+import de.leuphana.shop.structure.article.BookCategory;
 
 import java.util.HashSet;
 import java.util.Set;
