@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Cart</title>
-<link rel="stylesheet" href="/styles/cartStyle.css">
+<link rel="stylesheet" th:href="@{/styles/cartStyle.css}">
 </head>
 <body>
 	<div th:replace="~{banner}"></div>
@@ -17,9 +17,9 @@
 					<th:block th:each="cartItem : ${cartItems}">
 					<tr>
 						<td align=center th:text="${cartItem.getQuantity()}"></td>
-						<td th:text="${cartItem.getArticle().getName()}"></td>
-						<td th:text="${cartItem.getArticle().getPrice()} + ' Euro'"></td>
-						<td><a th:href="@{/dispatchAction/removeArticle(articleId=${cartItem.getArticle().getArticleId()})}">Remove article</a></td>
+						<td th:text="${cartItem.getName()}"></td>
+						<td th:text="${cartItem.getPrice()} + ' Euro'"></td>
+						<td><a th:href="@{/dispatchAction/removeArticle(articleId=${cartItem.getArticleId()})}">Remove article</a></td>
 					</tr>
 					</th:block>
 					<tr>

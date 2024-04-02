@@ -8,6 +8,7 @@ public class Cart {
 	private Integer id;
 	private List<CartItem> cartItems;
 	private int numberOfArticles;
+	private double totalPrice;
 
 	public Cart() {
 		cartItems = new ArrayList<>();
@@ -49,6 +50,7 @@ public class Cart {
 				if (cartItem.getQuantity() <= 0)
 					cartItems.remove(cartItem);
 				numberOfArticles--;
+				break;
 			}
 		}
 	}
@@ -77,14 +79,22 @@ public class Cart {
 		return numberOfArticles;
 	}
 
-//	public double getTotalPrice() {
-//		double totalPrice = 0.0;
-//
-//		for (CartItem cartItem : getCartItems()) {
-//			totalPrice += cartItem.getQuantity() * cartItem.getPrice();
-//		}
-//
-//		return totalPrice;
-//	}
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public double calculateTotalPrice() {
+		totalPrice = 0.0;
+
+		for (CartItem cartItem : getCartItems()) {
+			totalPrice += cartItem.getQuantity() * cartItem.getPrice();
+		}
+
+		return totalPrice;
+	}
 
 }

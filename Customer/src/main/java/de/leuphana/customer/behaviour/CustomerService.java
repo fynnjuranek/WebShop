@@ -126,6 +126,7 @@ public class CustomerService {
         CustomerEntity customerEntity = customerDatabase.findCustomerEntityByCustomerId(customerId);
         // Set the id of normal cart before mapping to entity because otherwise the id will be new generated, and it needs to stay the same!
         cart.setId(customerEntity.getCartEntity().getId());
+        cart.calculateTotalPrice();
         CartEntity cartEntity = customerMapper.mapToCartEntity(cart) ;
         for (CartItemEntity cartItemEntity : cartEntity.getCartItems()) {
             cartItemEntity.setCartEntity(cartEntity);

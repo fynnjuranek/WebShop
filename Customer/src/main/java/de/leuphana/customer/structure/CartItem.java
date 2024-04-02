@@ -5,7 +5,7 @@ public class CartItem {
 	private int cartItemId;
 	private Integer articleId;
 	private int quantity;
-	private Float price;
+	private double price;
 
 	public CartItem() {
 		quantity = 1;
@@ -35,11 +35,11 @@ public class CartItem {
 		quantity--;
 	}
 
-	public Float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

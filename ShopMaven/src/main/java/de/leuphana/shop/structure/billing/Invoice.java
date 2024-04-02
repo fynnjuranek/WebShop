@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class Invoice {
 	private Map<Integer, InvoicePosition> invoicePositions;
-	
+	private String orderId;
+
 	public Invoice() {
 		invoicePositions = new HashMap<Integer, InvoicePosition>();
 	}
@@ -19,4 +20,27 @@ public class Invoice {
 		return invoicePositions.values().stream().toList();
 	}
 
+	public int getInvoiceQuantity() {
+		int invoiceQuantity = 0;
+		for (InvoicePosition invoicePosition : invoicePositions.values()) {
+			invoiceQuantity += invoicePosition.getArticleQuantity();
+		}
+		return invoiceQuantity;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public double getTotalPrice() {
+		double totalPrice = 0.0;
+		for (InvoicePosition invoicePosition : invoicePositions.values()) {
+			totalPrice += invoicePosition.getTotalPrice();
+		}
+		return totalPrice;
+	}
 }

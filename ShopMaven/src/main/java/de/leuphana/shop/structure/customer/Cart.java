@@ -7,6 +7,7 @@ public class Cart {
 	private Integer id;
 	private List<CartItem> cartItems;
 	private int numberOfArticles;
+	private double totalPrice;
 
 	public Integer getId() {
 		return id;
@@ -32,5 +33,11 @@ public class Cart {
 		return numberOfArticles;
 	}
 
+	public double getTotalPrice() {
+		return totalPrice;
+	}
 
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 }

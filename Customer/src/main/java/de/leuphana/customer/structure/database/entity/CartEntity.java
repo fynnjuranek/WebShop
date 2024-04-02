@@ -17,6 +17,8 @@ public class CartEntity {
 
     private int numberOfArticles;
 
+    private Float totalPrice;
+
     public CartEntity() {
         cartItems = new ArrayList<>();
         numberOfArticles = 0;
@@ -46,4 +48,11 @@ public class CartEntity {
         return numberOfArticles;
     }
 
+    public Float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

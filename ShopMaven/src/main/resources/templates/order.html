@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/styles/orderStyle.css">
 <title>Order</title>
+<link rel="stylesheet" th:href="@{/styles/orderStyle.css}">
 </head>
 <body>
 	<th:block th:replace="banner"/>
 	<div class="wrapper">
 		<div class="cart">
-			<p th:text="'there are ' + ${cartItems.size()} + ' Articles in cart.'"></p>
+			<p th:text="'there are ' + ${cart.getNumberOfArticles()} + ' Articles in cart.'"></p>
 			
 			<table>
 				<tr>
@@ -20,8 +20,8 @@
 				<th:block th:each="cartItem : ${cartItems}">
 				<tr>
 					<td align=center th:text="${cartItem.getQuantity()}"></td>
-					<td th:text="${cartItem.getArticle().getName()}"></td>
-					<td th:text="${cartItem.getArticle().getPrice()} + ' EURO'"></td>
+					<td th:text="${cartItem.getName()}"></td>
+					<td th:text="${cartItem.getPrice()} + ' EURO'"></td>
 				</tr>
 				</th:block>
 				<tr>

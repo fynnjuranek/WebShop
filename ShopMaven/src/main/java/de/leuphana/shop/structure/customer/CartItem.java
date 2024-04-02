@@ -6,6 +6,9 @@ public class CartItem {
 	private Integer articleId;
 	private int quantity;
 	private Float price;
+	private String name;
+
+
 
 	public CartItem() {
 		quantity = 1;
@@ -41,5 +44,13 @@ public class CartItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

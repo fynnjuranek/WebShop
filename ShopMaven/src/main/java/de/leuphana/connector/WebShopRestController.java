@@ -1,12 +1,15 @@
 package de.leuphana.connector;
 
+import de.leuphana.order.structure.Order;
 import de.leuphana.shop.behaviour.ShopService;
 
 import de.leuphana.shop.structure.article.Article;
 import de.leuphana.shop.structure.article.Book;
 import de.leuphana.shop.structure.article.CD;
+import de.leuphana.shop.structure.billing.Invoice;
 import de.leuphana.shop.structure.customer.Cart;
 import de.leuphana.shop.structure.customer.CartItem;
+import de.leuphana.shop.structure.customer.Customer;
 import de.leuphana.shop.structure.sales.Catalog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,7 +57,8 @@ public class WebShopRestController {
         Article article = shopService.getArticleByArticleId(Integer.parseInt(articleId));
         Set<Article> articles = new HashSet<>(shopService.getArticles());
         // TODO: articleQuantity needs to be added in URL-call in view.
-        shopService.addArticleToCart((Integer)model.getAttribute("customerId"), article.getArticleId(), articleQuantity);
+        Customer customer = shopService.addArticleToCart((Integer)model.getAttribute("customerId"), article.getArticleId(), articleQuantity);
+        model.addAttribute("cart", customer.getCart());
         model.addAttribute("article", article);
         model.addAttribute("articles", articles);
         return showCatalog(model);
@@ -76,6 +80,7 @@ public class WebShopRestController {
     public String showCart(Model model) {
         Cart cart = shopService.getCustomer((Integer)model.getAttribute("customerId")).getCart();
         Collection<CartItem> cartItems = cart.getCartItems();
+
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("cart", cart);
         return "cart";
@@ -89,18 +94,25 @@ public class WebShopRestController {
 
     @RequestMapping("/orderArticles")
     public String orderArticles(Model model) {
-        Cart cart = shopService.getCustomer((Integer) model.getAttribute("customerId")).getCart();
-        model.addAttribute("cartItems", cart.getCartItems());
+        Customer customer = shopService.getCustomer((Integer) model.getAttribute("customerId"));
+        Cart cart = customer.getCart();
+        Collection<CartItem> cartItems = cart.getCartItems();
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("cart", cart);
         return "order";
     }
 
     @RequestMapping("/showReceipt")
     public String showReceipt(Model model, @RequestParam(name = "name") String name, @RequestParam(name = "iban") String iban) {
         Integer customerId = (Integer) model.getAttribute("customerId");
-        Cart cart = shopService.getCustomer(customerId).getCart();
+        Customer customer = shopService.getCustomer(customerId);
+        Order order = shopService.checkOutCart(customer.getCustomerId());
+
+        Invoice invoice = shopService.createInvoice(order.getOrderId());
         model.addAttribute("name", name);
         model.addAttribute("iban", iban);
-        model.addAttribute("cartItems", cart.getCartItems());
+//        model.addAttribute("cartItems", cart.getCartItems());
+        model.addAttribute("invoice", invoice);
         return "receipt";
     }
 }

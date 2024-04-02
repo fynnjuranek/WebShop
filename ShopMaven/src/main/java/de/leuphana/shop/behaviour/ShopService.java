@@ -35,10 +35,10 @@ public class ShopService {
     public List<Article> getArticles() {
         return articleRestConnectorRequester.getArticles();
     }
+
     public Article addNewArticleToCatalog(Article article) {
         return articleRestConnectorRequester.addArticle(article);
     }
-
 
     public boolean deleteArticleByArticleId(Integer articleId) {
         return articleRestConnectorRequester.deleteArticleByArticleId(articleId);
@@ -90,6 +90,7 @@ public class ShopService {
 
         Invoice invoice = new Invoice();
         Order order = orderJMSConnectorSender.getOrder(orderId);
+        invoice.setOrderId(order.getOrderId());
 
         for (OrderPosition orderPosition : order.getOrderPositions()) {
 
@@ -97,10 +98,10 @@ public class ShopService {
             invoicePosition.setArticleId(orderPosition.getArticleId());
 
             // Retrieve articlePrice from ArticleDatabase, because order shouldn't know anything about articles
-            Float articlePrice = getArticleByArticleId(orderPosition.getArticleId()).getPrice();
-			invoicePosition.setArticlePrice(articlePrice);
+            Article article = getArticleByArticleId(orderPosition.getArticleId());
+			invoicePosition.setArticlePrice(article.getPrice());
             invoicePosition.setArticleQuantity(orderPosition.getArticleQuantity());
-
+            invoicePosition.setArticleName(article.getName());
             invoice.addInvoicePosition(invoicePosition);
         }
 

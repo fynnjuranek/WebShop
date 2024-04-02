@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--<link rel="stylesheet" href="/styles/catalogStyle.css">-->
 	<link rel="stylesheet" type="text/css"
-		  href="/styles/catalogStyle.css" th:href="@{/styles/catalogStyle.css}" />
+		   th:href="@{/styles/catalogStyle.css}" />
 <title>Catalog</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
 	<h2>You have added following article into the cart:<br><th:block th:text="${article.getName()}"/></h2>
 	</th:block>
 
-	<th:block th:if="${cart.getCartItems().size() != 0}">
+	<th:block th:if="${cart.getNumberOfArticles() != 0}">
 		<div class ="catalogLink">
 		<p><a href ="/dispatchAction/showCart">Show Cart</a></p>
 		</div>

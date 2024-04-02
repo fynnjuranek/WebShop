@@ -4,8 +4,8 @@ public class InvoicePosition {
 	private Integer positionId;
 	private Integer articleId;
 	private Float articlePrice;
+	private String articleName;
 	private int articleQuantity;
-	private Double totalPrice;
 
 	public Integer getPositionId() {
 		return positionId;
@@ -41,6 +41,14 @@ public class InvoicePosition {
 
 	public Float getTotalPrice() {
 		return articleQuantity * articlePrice;
+	}
+
+	public String getArticleName() {
+		return articleName;
+	}
+
+	public void setArticleName(String articleName) {
+		this.articleName = articleName;
 	}
 
 }
