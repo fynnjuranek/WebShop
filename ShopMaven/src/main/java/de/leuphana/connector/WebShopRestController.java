@@ -109,7 +109,6 @@ public class WebShopRestController {
         Invoice invoice = shopService.createInvoice(order.getOrderId());
         model.addAttribute("name", name);
         model.addAttribute("iban", iban);
-//        model.addAttribute("cartItems", cart.getCartItems());
         model.addAttribute("invoice", invoice);
         return "receipt";
     }
