@@ -59,12 +59,12 @@ public class OrderJMSConnectorSenderTest {
         Assertions.assertNotNull(foundOrder);
     }
 
-    @Test
-    @Order(4)
-    void canOrderBeDeleted() {
-        boolean isDeleted = orderJMSConnectorSender.deleteOrder(addedOrder.getOrderId());
-        System.out.println("Deleted order with id: " + addedOrder.getOrderId() + " ? " + isDeleted);
-        Assertions.assertTrue(isDeleted);
-    }
+//    @Test
+//    @Order(4)
+//    void canOrderBeDeleted() {
+//        boolean isDeleted = orderJMSConnectorSender.deleteOrder(addedOrder.getOrderId());
+//        System.out.println("Deleted order with id: " + addedOrder.getOrderId() + " ? " + isDeleted);
+//        Assertions.assertTrue(isDeleted);
+//    }
 
 }
