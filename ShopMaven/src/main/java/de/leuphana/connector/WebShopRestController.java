@@ -41,7 +41,6 @@ public class WebShopRestController {
             model.addAttribute("cart", cart);
         }
         Catalog catalog = new Catalog();
-        //catalog.getArticles();
         Set<Article> articles = new HashSet<>(shopService.getArticles());
         catalog.setArticles(articles); // after getting them from the Database
 
