@@ -5,12 +5,14 @@
     <title>Register</title>
 </head>
 <body>
-    <form th:action="@{/register}" method="post">
+    <form th:action="@{/dispatchAction/createCustomer}" method="post">
         <div>
-            <input type="text" name="username" placeholder="Username"/>
+            <input type="text" name="email" placeholder="email"/>
         </div>
         <div>
             <input type="text" name="password" placeholder="Password"/>
+            <input type="text" name="personFullName" placeholder="FullName">
+            <input type="text" name="address" placeholder="Address">
         </div>
         <input type="submit" value="Register"/>
         <!--        <input type="button" value="Cancel" onclick="window.location='/dispatchAction/showCatalog';"/>-->

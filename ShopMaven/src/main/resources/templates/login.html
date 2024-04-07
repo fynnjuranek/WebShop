@@ -5,13 +5,13 @@
     <title>Please log In</title>
 </head>
 <body>
-    <div th:replace="banner"></div>
+    <div th:replace="~{banner}"></div>
 
     <h1>Please Log In</h1>
-    <div th:if="${param.error}">Invalid username and password.</div>
-    <div th:if="${param.logout}">You have been logged out.</div>
+<!--    <div th:if="${param.error}">Invalid username and password.</div>-->
+<!--    <div th:if="${param.logout}">You have been logged out.</div>-->
 
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/dispatchAction/redirectCustomer}" method="post">
         <div>
             <input type="text" name="username" placeholder="Username"/>
         </div>
@@ -22,11 +22,11 @@
 <!--        <input type="button" value="Cancel" onclick="window.location='/dispatchAction/showCatalog';"/>-->
     </form>
 
-    <form th:action="@{/registerUser}" method="get">
-        <input type="submit" value="Register">
+    <form th:action="@{/dispatchAction/register}" method="get">
+        <input type="submit">
     </form>
 
-    <th:block th:replace="imprint"></th:block>
+    <div th:replace="~{imprint}"> </div>
 
 </body>
 </html>

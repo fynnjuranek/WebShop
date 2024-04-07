@@ -11,13 +11,12 @@ import de.leuphana.shop.structure.customer.Cart;
 import de.leuphana.shop.structure.customer.CartItem;
 import de.leuphana.shop.structure.customer.Customer;
 import de.leuphana.shop.structure.sales.Catalog;
+import feign.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -30,6 +29,7 @@ public class WebShopRestController {
 
     @Autowired
     ShopService shopService;
+
 
 
     @RequestMapping("/showCatalog")
@@ -111,5 +111,29 @@ public class WebShopRestController {
         model.addAttribute("iban", iban);
         model.addAttribute("invoice", invoice);
         return "receipt";
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+    @RequestMapping("/register")
+    public String register(Model model) {
+        return "register";
+    }
+
+    @PostMapping("redirectCustomer")
+    public String redirectCustomer(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
+        System.out.println(username + " " + password);
+        // TODO: redirect the customer to their initial page before login
+        return "cart";
+    }
+
+    @PostMapping("/createCustomer")
+    public String createCustomer(Model model, @RequestParam("email") String email, @RequestParam("password") String password,
+                                 @RequestParam("personFullName") String fullName, @RequestParam("address") String address) {
+        shopService.createCustomer(fullName, address);
+        return "cart";
     }
 }

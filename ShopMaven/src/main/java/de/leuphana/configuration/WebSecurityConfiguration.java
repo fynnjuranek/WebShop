@@ -25,7 +25,7 @@ public class WebSecurityConfiguration {
                 .anyRequest().permitAll()
                 )
                 .formLogin((formLogin) ->
-                    formLogin.loginPage("/login")
+                    formLogin.loginPage("/dispatchAction/login")
                             .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);

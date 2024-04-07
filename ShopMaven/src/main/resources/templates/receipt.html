@@ -6,7 +6,7 @@
 <title>Receipt</title>
 </head>
 <body>
-	<th:block th:replace="banner"/>
+	<div th:replace="~{banner}"></div>
 
 		<p th:text="'The following ' + ${invoice.getInvoiceQuantity()} + ' are ordered for the user ' + ${name} + ' Credit card number: ' + ${iban} +
 				' and the order-id is: ' + ${invoice.getOrderId()}"></p>
@@ -31,6 +31,6 @@
 		<p>Thank you!</p>
 		<p><a href="/dispatchAction/showCatalog">Back to Catalog</a></p>
 
-	<th:block th:replace="imprint"/>
+	<div th:replace="~{imprint}"> </div>
 </body>
 </html>
