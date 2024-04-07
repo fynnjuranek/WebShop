@@ -28,7 +28,6 @@ import java.util.Set;
 @SessionAttributes({"customerId", "cart"})
 public class WebShopRestController {
 
-//    private final Shop onlineShop = Shop.create();
     @Autowired
     ShopService shopService;
 
