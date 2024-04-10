@@ -28,6 +28,7 @@ public class CustomerService {
 
     public Customer createCustomer(String customerName, String customerAddress, String customerEmail, String password) {
         Customer customer = new Customer(customerName, customerAddress, customerEmail, password);
+        System.out.println(customer.getPassword());
         return addCustomerToDatabase(customer);
     }
 

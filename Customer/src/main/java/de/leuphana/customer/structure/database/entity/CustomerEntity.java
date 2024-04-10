@@ -52,6 +52,14 @@ public class CustomerEntity {
         this.customerEmail = customerEmail;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
