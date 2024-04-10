@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerDatabase extends JpaRepository<CustomerEntity, Integer> {
     CustomerEntity findCustomerEntityByCustomerId(Integer customerId);
+    CustomerEntity findCustomerEntityByCustomerEmail(String customerEmail);
 }

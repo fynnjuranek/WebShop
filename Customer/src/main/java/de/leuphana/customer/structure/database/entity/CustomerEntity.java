@@ -11,7 +11,9 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
     private String name;
+    private String password;
     private String address;
+    private String customerEmail;
 
     @OneToOne(cascade = CascadeType.ALL)
     private CartEntity cartEntity;
@@ -40,6 +42,14 @@ public class CustomerEntity {
 
     public String getName() {
         return name;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public void setName(String name) {

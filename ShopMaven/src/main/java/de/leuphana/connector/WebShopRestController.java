@@ -24,18 +24,19 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/dispatchAction")
-@SessionAttributes({"customerId", "cart"})
+@SessionAttributes({"customerId", "cart", "redirectingUrl"})
 public class WebShopRestController {
 
     @Autowired
     ShopService shopService;
 
-
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @RequestMapping("/showCatalog")
     public String showCatalog(Model model) {
         if (model.getAttribute("customerId") == null || model.getAttribute("cart") == null) {
-            Integer customerId = shopService.createCustomer("Test", "Test"); // TODO: The Parameters need to be changed.
+            Integer customerId = shopService.createCustomer("Test", "Test", "Test@Mail", "test password not encoded"); // TODO: The Parameters need to be changed.
             Cart cart = shopService.getCustomer(customerId).getCart();
             model.addAttribute("customerId", customerId); // TODO check if every model.addAttribute is really needed
             model.addAttribute("cart", cart);
@@ -81,6 +82,7 @@ public class WebShopRestController {
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("cart", cart);
+        model.addAttribute("redirectingUrl", "/dispatchAction/showCart");
         return "cart";
     }
 
@@ -97,6 +99,7 @@ public class WebShopRestController {
         Collection<CartItem> cartItems = cart.getCartItems();
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("cart", cart);
+        model.addAttribute("redirectingUrl", "order");
         return "order";
     }
 
@@ -115,6 +118,9 @@ public class WebShopRestController {
 
     @RequestMapping("/login")
     public String login(Model model) {
+        String redirectingUrl = (String) model.getAttribute("redirectingUrl");
+        System.out.println("Das ist die URL aus /login " + redirectingUrl);
+//        model.addAttribute("redirectingUrl", redirectingUrl);
         return "login";
     }
 
@@ -123,17 +129,23 @@ public class WebShopRestController {
         return "register";
     }
 
-    @PostMapping("redirectCustomer")
+    @PostMapping("/redirectCustomer")
     public String redirectCustomer(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
         System.out.println(username + " " + password);
         // TODO: redirect the customer to their initial page before login
-        return "cart";
+        String redirectingTemplate = (String) model.getAttribute("redirectingUrl");
+        System.out.println(redirectingTemplate);
+        return redirectingTemplate;
     }
 
     @PostMapping("/createCustomer")
-    public String createCustomer(Model model, @RequestParam("email") String email, @RequestParam("password") String password,
+    public String createCustomer(Model model, @RequestParam("customerEmail") String customerEmail, @RequestParam("password") String password,
                                  @RequestParam("personFullName") String fullName, @RequestParam("address") String address) {
-        shopService.createCustomer(fullName, address);
+
+        // TODO: This is not so good because of package sniffing I think
+        String encodedPassword = passwordEncoder.encode(password);
+        System.out.println("Das hier ist das encoded password: " + encodedPassword);
+        shopService.createCustomer(fullName, address, customerEmail, encodedPassword);
         return "cart";
     }
 }

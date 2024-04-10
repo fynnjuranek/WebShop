@@ -26,8 +26,12 @@ public class CustomerService {
 
     static final Logger LOGGER = LoggerFactory.getLogger(CustomerService.class);
 
-    public Customer createCustomer(String customerName, String customerAddress) {
-        Customer customer = new Customer(customerName, customerAddress);
+    public Customer createCustomer(String customerName, String customerAddress, String customerEmail, String password) {
+        Customer customer = new Customer(customerName, customerAddress, customerEmail, password);
+        return addCustomerToDatabase(customer);
+    }
+
+    public Customer createCustomer(Customer customer) {
         return addCustomerToDatabase(customer);
     }
 
@@ -92,6 +96,18 @@ public class CustomerService {
 
     public Customer findCustomerByCustomerId(Integer customerId) {
         CustomerEntity customerEntity = customerDatabase.findCustomerEntityByCustomerId(customerId);
+        Customer customer = customerMapper.mapToCustomer(customerEntity);
+        // customer orders needs to be set separately because it's null otherwise
+        if (customerEntity.getOrderIDs() != null) {
+            customer.setOrders(customerEntity.getOrderIDs());
+        }
+        customer.setCart(customerMapper.mapToCart(customerEntity.getCartEntity()));
+
+        return customer;
+    }
+
+    public Customer findCustomerByCustomerEmail(String customerEmail) {
+        CustomerEntity customerEntity = customerDatabase.findCustomerEntityByCustomerEmail(customerEmail);
         Customer customer = customerMapper.mapToCustomer(customerEntity);
         // customer orders needs to be set separately because it's null otherwise
         if (customerEntity.getOrderIDs() != null) {

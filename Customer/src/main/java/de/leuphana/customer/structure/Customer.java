@@ -6,6 +6,8 @@ import java.util.List;
 public class Customer {
 
 	private Integer customerId;
+	private String customerEmail;
+	private String password;
 	private String name;
 	private String address;
 	private Cart cart;
@@ -20,11 +22,13 @@ public class Customer {
 		orderIDs = new ArrayList<>();
 	}
 
-	public Customer(String name, String address) {
+	public Customer(String name, String address, String customerEmail, String password) {
 		cart = new Cart();
 		orderIDs = new ArrayList<>();
 		this.name = name;
 		this.address = address;
+		this.customerEmail = customerEmail;
+		this.password = password;
 	}
 
 	public Integer getCustomerId() {
@@ -37,6 +41,22 @@ public class Customer {
 
 	public void setOrderIDs(List<String> orderIDs) {
 		this.orderIDs = orderIDs;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Cart getCart() {

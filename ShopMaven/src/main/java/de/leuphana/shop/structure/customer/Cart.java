@@ -1,5 +1,6 @@
 package de.leuphana.shop.structure.customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
@@ -8,6 +9,11 @@ public class Cart {
 	private List<CartItem> cartItems;
 	private int numberOfArticles;
 	private double totalPrice;
+
+	public Cart() {
+		cartItems = new ArrayList<>();
+		numberOfArticles = 0;
+	}
 
 	public Integer getId() {
 		return id;

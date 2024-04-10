@@ -11,6 +11,7 @@ import de.leuphana.shop.structure.customer.Customer;
 import de.leuphana.order.structure.Order;
 import de.leuphana.order.structure.OrderPosition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration;
 import org.springframework.stereotype.Service;
 import de.leuphana.shop.structure.article.Article;
 
@@ -48,8 +49,19 @@ public class ShopService {
         return orderJMSConnectorSender.deleteOrder(orderId);
     }
 
+    public Integer createCustomer(String customerName, String customerAddress, String customerEmail, String password) {
+        Customer createdCustomer = customerRestConnectorRequester.createCustomer(customerName, customerAddress, customerEmail, password);
+        return createdCustomer.getCustomerId();
+    }
+
+    public Integer createCustomer(Customer customer) {
+        Customer createdCustomer = customerRestConnectorRequester.createCustomer(customer);
+        return createdCustomer.getCustomerId();
+    }
+
     public Integer createCustomer(String customerName, String customerAddress) {
-        Customer createdCustomer = customerRestConnectorRequester.createCustomer(customerName, customerAddress);
+        // TODO: create another customerCreationMethod in restRequester
+        Customer createdCustomer = customerRestConnectorRequester.createCustomer(customerName, customerAddress, "DELETE THIS", "DELETE THIS");
         return createdCustomer.getCustomerId();
     }
 

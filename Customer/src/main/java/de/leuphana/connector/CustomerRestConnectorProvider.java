@@ -17,9 +17,21 @@ public class CustomerRestConnectorProvider {
         return customerService.findCustomerByCustomerId(customerId);
     }
 
-    @RequestMapping("/createCustomer/{customerName}/{customerAddress}")
-    Customer createCustomer(@PathVariable("customerName") String customerName, @PathVariable("customerAddress") String customerAddress) {
-        return customerService.createCustomer(customerName, customerAddress);
+    @RequestMapping("/getCustomerByEmail/{customerEmail}")
+    Customer getCustomerByEmail(@PathVariable("customerEmail") String customerEmail) {
+        return customerService.findCustomerByCustomerEmail(customerEmail);
+    }
+
+    @RequestMapping("/createCustomer/{customerName}/{customerAddress}/{customerEmail}/{password}")
+    Customer createCustomer(@PathVariable("customerName") String customerName,
+                            @PathVariable("customerAddress") String customerAddress, @PathVariable("customerEmail") String customerEmail,
+                            @PathVariable("password") String password) {
+        return customerService.createCustomer(customerName, customerAddress, customerEmail, password);
+    }
+
+    @RequestMapping("/createCustomer")
+    Customer createCustomer(@RequestBody Customer customer) {
+        return customerService.createCustomer(customer);
     }
 
     @RequestMapping("/getCustomers")

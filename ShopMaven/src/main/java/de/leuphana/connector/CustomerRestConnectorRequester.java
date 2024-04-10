@@ -13,8 +13,17 @@ public interface CustomerRestConnectorRequester {
     @RequestMapping("/getCustomer/{customerId}")
     Customer getCustomerByCustomerId(@PathVariable("customerId") Integer customerId);
 
-    @RequestMapping("/createCustomer/{customerName}/{customerAddress}")
-    Customer createCustomer(@PathVariable("customerName") String customerName, @PathVariable("customerAddress") String customerAddress);
+    @RequestMapping("/getCustomerByEmail/{customerEmail}")
+    Customer getCustomerByEmail(@PathVariable("customerEmail") String customerEmail);
+
+    @RequestMapping("/createCustomer/{customerName}/{customerAddress}/{customerEmail}/{password}")
+    Customer createCustomer(@PathVariable("customerName") String customerName,
+                            @PathVariable("customerAddress") String customerAddress, @PathVariable("customerEmail") String customerEmail,
+                            @PathVariable("password") String password);
+
+    @RequestMapping("/createCustomer")
+    Customer createCustomer(@RequestBody Customer customer);
+
 
     @RequestMapping("/getCustomers")
     List<Customer> getAllCustomers();
