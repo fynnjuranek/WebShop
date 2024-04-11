@@ -108,7 +108,6 @@ public class WebShopRestController {
         Integer customerId = (Integer) model.getAttribute("customerId");
         Customer customer = shopService.getCustomer(customerId);
         Order order = shopService.checkOutCart(customer.getCustomerId());
-
         Invoice invoice = shopService.createInvoice(order.getOrderId());
         model.addAttribute("name", name);
         model.addAttribute("iban", iban);
