@@ -17,19 +17,20 @@ public class Cart {
 
 	public void addCartItem(Integer articleId, Float articlePrice, Integer articleQuantity) {
 		CartItem cartItem = null;
-		for (CartItem cartItemEntity : cartItems) {
-			if (Objects.equals(cartItemEntity.getArticleId(), articleId)) {
-				cartItem = cartItems.get(cartItems.indexOf(cartItemEntity));
-//				cartItem.incrementQuantity();
+		for (CartItem alreadyAddedCartItem : cartItems) {
+			if (Objects.equals(alreadyAddedCartItem.getArticleId(), articleId)) {
+				cartItem = cartItems.get(cartItems.indexOf(alreadyAddedCartItem));
+				// cartItem.incrementQuantity();
 			}
 		}
 		if (cartItem == null) {
 			cartItem = new CartItem();
 			cartItem.setArticleId(articleId);
 			cartItem.setPrice(articlePrice);
+			cartItems.add(cartItem);
 		}
-		cartItem.setQuantity(articleQuantity);
-		cartItems.add(cartItem);
+		// add quantity to the cartItem in the list
+		cartItems.get(cartItems.indexOf(cartItem)).addQuantity(articleQuantity);
 		numberOfArticles += articleQuantity;
 	}
 
