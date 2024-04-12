@@ -5,6 +5,9 @@
     <title>Register</title>
 </head>
 <body>
+    <div th:replace="~{banner}"></div>
+    <div><a href="/dispatchAction/showCatalog">Show Catalog</a></div>
+    <h1>Register here</h1>
     <form th:action="@{/dispatchAction/createCustomer}" method="post">
         <div>
             <input type="text" name="customerEmail" placeholder="email"/>
@@ -17,5 +20,7 @@
         <input type="submit" value="Register"/>
         <!--        <input type="button" value="Cancel" onclick="window.location='/dispatchAction/showCatalog';"/>-->
     </form>
+
+    <div th:replace="~{imprint}"></div>
 </body>
 </html>

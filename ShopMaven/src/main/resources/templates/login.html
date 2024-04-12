@@ -6,12 +6,13 @@
 </head>
 <body>
     <div th:replace="~{banner}"></div>
+    <a href="/dispatchAction/showCatalog">Show Catalog</a>
 
     <h1>Please Log In</h1>
 <!--    <div th:if="${param.error}">Invalid username and password.</div>-->
 <!--    <div th:if="${param.logout}">You have been logged out.</div>-->
 
-    <form th:action="${redirectingUrl}" method="post">
+    <form th:action="@{/dispatchAction/login}" method="post">
         <div>
             <input type="text" name="username" placeholder="Username"/>
         </div>

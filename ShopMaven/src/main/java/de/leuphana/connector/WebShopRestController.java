@@ -2,7 +2,6 @@ package de.leuphana.connector;
 
 import de.leuphana.order.structure.Order;
 import de.leuphana.shop.behaviour.ShopService;
-
 import de.leuphana.shop.structure.article.Article;
 import de.leuphana.shop.structure.article.Book;
 import de.leuphana.shop.structure.article.CD;
@@ -11,12 +10,14 @@ import de.leuphana.shop.structure.customer.Cart;
 import de.leuphana.shop.structure.customer.CartItem;
 import de.leuphana.shop.structure.customer.Customer;
 import de.leuphana.shop.structure.sales.Catalog;
-import feign.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,8 +36,12 @@ public class WebShopRestController {
 
     @RequestMapping("/showCatalog")
     public String showCatalog(Model model) {
+        /*TODO: The customer needs to be created through registering or login.
+            maybe consider creating a local customer until one is created or logged in.
+        */
         if (model.getAttribute("customerId") == null || model.getAttribute("cart") == null) {
             Integer customerId = shopService.createCustomer("Test", "Test", "Test@Mail", "test password not encoded"); // TODO: The Parameters need to be changed.
+            // create local cart
             Cart cart = shopService.getCustomer(customerId).getCart();
             model.addAttribute("customerId", customerId); // TODO check if every model.addAttribute is really needed
             model.addAttribute("cart", cart);
@@ -82,7 +87,7 @@ public class WebShopRestController {
 
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("cart", cart);
-        model.addAttribute("redirectingUrl", "/dispatchAction/showCart");
+        model.addAttribute("redirectingUrl", "cart");
         return "cart";
     }
 
@@ -103,7 +108,7 @@ public class WebShopRestController {
         return "order";
     }
 
-    @RequestMapping("/showReceipt")
+    @PostMapping("/showReceipt")
     public String showReceipt(Model model, @RequestParam(name = "name") String name, @RequestParam(name = "iban") String iban) {
         Integer customerId = (Integer) model.getAttribute("customerId");
         Customer customer = shopService.getCustomer(customerId);
@@ -123,18 +128,18 @@ public class WebShopRestController {
         return "login";
     }
 
-    @RequestMapping("/register")
-    public String register(Model model) {
-        return "register";
-    }
 
-    @PostMapping("/redirectCustomer")
-    public String redirectCustomer(Model model, @RequestParam("username") String username, @RequestParam("password") String password) {
-        System.out.println(username + " " + password);
+    @RequestMapping("/redirectCustomer")
+    public String redirectCustomer(Model model) {
         // TODO: redirect the customer to their initial page before login
         String redirectingTemplate = (String) model.getAttribute("redirectingUrl");
         System.out.println(redirectingTemplate);
         return redirectingTemplate;
+    }
+
+    @RequestMapping("/register")
+    public String register(Model model) {
+        return "register";
     }
 
     @PostMapping("/createCustomer")
@@ -144,7 +149,10 @@ public class WebShopRestController {
         // TODO: This is not so good because of package sniffing I think
         String encodedPassword = passwordEncoder.encode(password);
         System.out.println("Das hier ist das encoded password: " + encodedPassword);
-        shopService.createCustomer(fullName, address, customerEmail, encodedPassword);
+        Integer customerId = shopService.createCustomer(fullName, address, customerEmail, encodedPassword);
+        Customer customer = shopService.getCustomer(customerId);
+        model.addAttribute("customerId", customerId);
+        model.addAttribute("cart", customer.getCart());
         return "cart";
     }
 }

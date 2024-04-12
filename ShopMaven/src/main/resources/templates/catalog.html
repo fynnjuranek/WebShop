@@ -9,17 +9,24 @@
 </head>
 <body>
 	<div th:replace="~{banner}"></div>
-
-	<div class="login"><a href="/login">Login</a></div>
-
+	<th:block th:if="${!#authorization.expression('isAuthenticated()')}">
+		<div class="login"><a href="/dispatchAction/login">Login</a></div>
+		<div class="register"><a href="/dispatchAction/register">Register</a></div>
+	</th:block>
+	<th:block th:if="${#authorization.expression('isAuthenticated()')}">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Logout"/>
+		</form>
+	</th:block>
 	<th:block th:if="${article != null}">
 	<h2>You have added following article into the cart:<br><th:block th:text="${article.getName()}"/></h2>
 	</th:block>
-
-	<th:block th:if="${cart.getNumberOfArticles() != 0}">
-		<div class ="catalogLink">
-		<p><a href ="/dispatchAction/showCart">Show Cart</a></p>
-		</div>
+	<th:block th:if="${cart != null}">
+		<th:block th:if="${cart.getNumberOfArticles() != 0}">
+			<div class ="catalogLink">
+			<p><a href ="/dispatchAction/showCart">Show Cart</a></p>
+			</div>
+		</th:block>
 	</th:block>
 
 	<table>

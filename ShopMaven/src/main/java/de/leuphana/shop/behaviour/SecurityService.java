@@ -21,9 +21,15 @@ public class SecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
         Customer customer = customerRestConnectorRequester.getCustomerByEmail(emailAddress);
-        return User.builder()
-                .username(customer.getCustomerEmail())
-                .password(customer.getPassword())
-                .build();
+        if (customer != null) {
+            // TODO: delete out-print
+            System.out.println(customer.getCustomerEmail());
+            return User.builder()
+                    .username(customer.getCustomerEmail())
+                    .password(customer.getPassword())
+                    .build();
+        } else {
+            throw new UsernameNotFoundException(emailAddress);
+        }
     }
 }
